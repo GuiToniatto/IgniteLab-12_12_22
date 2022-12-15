@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { NotificationsRepository } from '../../repositories/NotificationsRepository';
-import { NotificationNotFound } from '../errors/NotificationNotFound';
 
 interface CountRecipientNotificationsRequest {
   recipientId: string;
@@ -19,13 +18,9 @@ export class CountRecipientNotifications {
   ): Promise<CountRecipientNotificationsResponse> {
     const { recipientId } = request;
 
-    const count = await this.notificationsRepository.findManyByRecipientId(
+    const count = await this.notificationsRepository.countManyByRecipientId(
       recipientId,
     );
-
-    if (!count) {
-      throw new NotificationNotFound();
-    }
 
     return { count };
   }

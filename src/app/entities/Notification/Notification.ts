@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { Replace } from 'src/helpers/Replace';
 import { Content } from './Content';
 
-interface NotificationProps {
+export interface NotificationProps {
   recipientId: string;
   content: Content;
   category: string;
@@ -51,8 +51,12 @@ export class Notification {
     return this.props.category;
   }
 
-  public set readAt(value: Date | null | undefined) {
-    this.props.readAt = value;
+  public read() {
+    this.props.readAt = new Date();
+  }
+
+  public unread() {
+    this.props.readAt = null;
   }
 
   public get readAt(): Date | null | undefined {
